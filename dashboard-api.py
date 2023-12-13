@@ -4,6 +4,8 @@ import numpy as np
 from PIL import Image
 from streamlit.proto.Selectbox_pb2 import Selectbox
 import requests
+pip install matplotlib
+
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
