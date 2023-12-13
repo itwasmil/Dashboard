@@ -13,9 +13,8 @@ import logging
 
 import os
 
-API_URL = os.environ.get('HEROKU_URL', 'http://localhost:5000')
-
-
+#API_URL = os.environ.get('HEROKU_URL', 'http://localhost:5000')
+heroku_api_url = "https://still-bayou-61593-4aed81ce9738.herokuapp.com"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -89,7 +88,7 @@ def main():
     if st.button("Predict and Compare"):
         try:
             # Send request to Flask API for predictions and SHAP plot
-            response = requests.post(f"{API_URL}/predict", json={"client_code_1": client_code_1})
+            response = requests.post(f"{heroku_api_url}/predict", json={"client_code_1": client_code_1})
             response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
             data = response.json()
             
