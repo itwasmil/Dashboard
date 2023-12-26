@@ -85,7 +85,7 @@ def main():
     selected_client_data = df_test[df_test['SK_ID_CURR'] == client_code_1]
     st.write(selected_client)
 
-    if st.button("Predict and Compare"):
+    if st.button("Predict and Understand"):
         try:
             # Send request to Flask API for predictions and SHAP plot
             response = requests.post(f"{heroku_api_url}/predict", json={"client_code_1": client_code_1})
@@ -98,7 +98,7 @@ def main():
 
             st.subheader("Predictions")
             st.write(f"Client {client_code_1} Prediction: {predictions['prediction_1']}")
-            st.write(f"Probability of Repayment Issues: {predictions['probability_1']} ")
+            st.write(f"Probability of Repayment Issues: {predictions['probability_1']:.2f}%")
             st.write("********************************************************")
             
             shap_values_matrix = predictions['values']
@@ -111,6 +111,7 @@ def main():
             st.title(f"Variables influence on the Prediction for client {client_code_1}")
             idx1 = df_test_raw[df_test_raw['SK_ID_CURR'] == int(client_code_1)].index[0]
             generate_shap_plot(values,base_value,result_series)
+            st.write(f"The red bars are linked to the variables that have mostly impacted the augmentation of the probability of defaulting by the client, whereas the blu bars indicate those variables that are lowering that probability.")
         except requests.RequestException as e:
             st.error(f"Error making prediction request: {e}")
 
@@ -119,6 +120,7 @@ def main():
     
     if st.button("Compare based on Variables"):
         compare_variable(selected_client, df_test_raw, selected_variable, client_code_1)
+        st.write(f"For each variable taken into acount for the decision making process a graph with its distribtion and the clients emplacement.)
        
     
 if __name__ == '__main__':
