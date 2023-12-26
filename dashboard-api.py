@@ -120,7 +120,7 @@ def main():
     
     if st.button("Compare based on Variables"):
         compare_variable(selected_client, df_test_raw, selected_variable, client_code_1)
-        st.write(f"For each variable taken into acount for the decision making process a graph with its distribtion and the clients emplacement.)
+        st.write(f"For each variable taken into acount for the decision making process a graph with its distribtion and the clients emplacement.")
        
     
 if __name__ == '__main__':
