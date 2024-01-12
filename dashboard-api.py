@@ -41,6 +41,7 @@ def generate_shap_plot(values, base_value, data):
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
+
 @st.cache_data
 def compare_variable(selected_client, df_test_raw, selected_variable, client_code_1):
     st.title("Client Comparison to all the Clients")
@@ -115,13 +116,19 @@ def main():
         except requests.RequestException as e:
             st.error(f"Error making prediction request: {e}")
 
-    
-    selected_variable = st.selectbox("Select a variable:", df_test_raw.drop("SK_ID_CURR", axis=1).columns)
+    option = st.checkbox('Veuillez cocher cette case')
+
+    if option:
+        selected_variable = st.selectbox("Select a variable:", df_test_raw.drop("SK_ID_CURR", axis=1).columns)
     
     if st.button("Compare based on Variables"):
         compare_variable(selected_client, df_test_raw, selected_variable, client_code_1)
         st.write(f"For each variable taken into acount for the decision making process a graph with its distribtion and the clients emplacement.")
-       
+   
+    else:
+        st.write('Veuillez cocher la case pour afficher ce message.')
+
+        
     
 if __name__ == '__main__':
     main()
