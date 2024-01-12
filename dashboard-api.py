@@ -116,17 +116,15 @@ def main():
         except requests.RequestException as e:
             st.error(f"Error making prediction request: {e}")
 
-    option = st.checkbox('Veuillez cocher cette case')
+    option = st.checkbox('Select this case for more details')
 
     if option:
         selected_variable = st.selectbox("Select a variable:", df_test_raw.drop("SK_ID_CURR", axis=1).columns)
-    
-    if st.button("Compare based on Variables"):
         compare_variable(selected_client, df_test_raw, selected_variable, client_code_1)
         st.write(f"For each variable taken into acount for the decision making process a graph with its distribtion and the clients emplacement.")
    
     else:
-        st.write('Veuillez cocher la case pour afficher ce message.')
+        st.write('Compare based on Variables')
 
         
     
