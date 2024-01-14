@@ -13,9 +13,9 @@ import logging
 
 import os
 
-heroku_api_url = 'http://localhost:5000'
+#heroku_api_url = 'http://localhost:5000'
 
-# heroku_api_url = "https://still-bayou-61593-4aed81ce9738.herokuapp.com"
+heroku_api_url = "https://still-bayou-61593-4aed81ce9738.herokuapp.com"
 logging.basicConfig(level=logging.INFO)
 
 # Initialize session state
