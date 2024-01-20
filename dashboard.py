@@ -184,31 +184,20 @@ def main():
             base_value = predictions['base_values']
             result_series = pd.Series(dat)
 
-        except requests.RequestException as e:
-            st.error(f"Error making prediction request: {e}")
-   
-    if st.session_state.data_displayed:
-        option = st.checkbox('Select this case for more details')
-        if option:
-            response = requests.post(f"{heroku_api_url}/predict", json={"client_code_1": client_code_1})
-            response.raise_for_status() 
-            data = response.json()
-            
-            predictions = data['predictions']
-            dat = data['dat']
-             
-            shap_values_matrix = predictions['values']
-            values = np.array(shap_values_matrix)
-            base_value = predictions['base_values']
-            result_series = pd.Series(dat)
-
             st.title(f"Variables influence on the Prediction for client {client_code_1}")
             idx1 = df_test_raw[df_test_raw['SK_ID_CURR'] == int(client_code_1)].index[0]
             generate_shap_plot(values,base_value,result_series)
 
             
             st.write(f"This waterfall plot represent the cumulative effect of sequentially introduced positive or negative variables. Each bar/variable is color-coded to indicate whether it contributes positively (blue) or negatively (red) to the final understanding of a client having or not repayment issues. The length of each bar represents the magnitude of the change.")
-           
+         
+        except requests.RequestException as e:
+            st.error(f"Error making prediction request: {e}")
+   
+    if st.session_state.data_displayed:
+        option = st.checkbox('Select this case for more details')
+        if option:
+              
             sorted_columns = sorted(df_test_raw.drop("SK_ID_CURR", axis=1).columns)
             selected_variable = st.selectbox("Select a variable:", sorted_columns)
             compare_variable(selected_client,df_test_raw, merged_data, selected_variable, client_code_1)
